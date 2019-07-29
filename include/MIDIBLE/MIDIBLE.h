@@ -188,7 +188,7 @@ namespace MIDIBLE
 			this->server->setCallbacks(&service_callbacks);
 			this->midi_service = server->createService(Const::ServiceUUID.c_str());
 			this->midi_characteristic = midi_service->createCharacteristic(Const::CharacteristicUUID.c_str(),
-			    BLECharacteristic::PROPERTY_READ | BLECharacteristic::PROPERTY_WRITE | BLECharacteristic::PROPERTY_NOTIFY | BLECharacteristic::PROPERTY_WRITE_NR);
+			    BLECharacteristic::PROPERTY_READ | BLECharacteristic::PROPERTY_NOTIFY | BLECharacteristic::PROPERTY_WRITE_NR);
 
 			this->characteristic_callbacks.write_handler = [&](std::string rxValue) {
 				if (rxValue.length() > 0) {
@@ -210,8 +210,6 @@ namespace MIDIBLE
 			BLEAdvertisementData advertising_data;
 
 			auto udid = std::string((const char *)&this->device_udid);
-			advertising_data.setFlags(0x04);
-			advertising_data.setManufacturerData(udid);
 			advertising_data.setCompleteServices(BLEUUID(Const::ServiceUUID));
 			advertising->setAdvertisementData(advertising_data);
 			this->server->startAdvertising();
